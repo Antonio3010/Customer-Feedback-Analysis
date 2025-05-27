@@ -12,8 +12,7 @@ CREATE TABLE customer_survey (
 SELECT * FROM customer_survey LIMIT 10;
 
 
-
--- Promedio de satisfacción en cada categoría --
+-- Average satisfaction in each category --
 SELECT 
     AVG(DeliverySatisfaction) AS AvgDelivery,
     AVG(FoodAqualitySatisfaction) AS AvgFoodAquality,
@@ -22,7 +21,7 @@ FROM customer_survey;
 
 
 
--- Distribucuón de las calificaciones --
+-- Distribution of qualifications --
 SELECT
     DeliverySatisfaction,
     COUNT(*) AS Count
@@ -32,7 +31,7 @@ ORDER BY DeliverySatisfaction;
 
 
 
--- Porcentaje de pedidos precisos vs. imprecisos --
+-- Percentage of accurate vs. inaccurate orders --
 SELECT
     OrderAccuracy,
     COUNT(*) AS Count,
@@ -43,7 +42,7 @@ GROUP BY OrderAccuracy;
 
 
 
--- Correlación entre satisfacción con la entrega y calidad de la comida --
+-- Correlation between satisfaction with delivery and quality of food --
 SELECT
     (AVG(DeliverySatisfaction * FoodAqualitySatisfaction) - AVG(DeliverySatisfaction)
 * AVG(FoodAqualitySatisfaction)) /
@@ -52,13 +51,12 @@ AS Correlation_Delivery_FoodAquality
 FROM customer_survey;
 
 
-
--- Clientes satisfechos vs insatisfechos --
+-- Satisfied vs. dissatisfied customers --
 SELECT
 	CASE
-        WHEN DeliverySatisfaction >= 4 THEN 'Satisfecho'
+        WHEN DeliverySatisfaction >= 4 THEN 'Satisfied'
         WHEN DeliverySatisfaction = 3 THEN 'Neutral'
-        ELSE 'Insatisfecho'
+        ELSE 'Dissatisfied'
 	END as SatisfactionLevel,
     COUNT(*) AS Count
 FROM customer_survey
